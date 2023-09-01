@@ -1,0 +1,26 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: api-route
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - "api-route-gateway"
+  http:
+  - match:
+    - uri:
+        prefix: /api2
+    route:
+    - destination:
+        host: api2-route
+        port:
+          number: 5000
+  - match:
+    - uri:
+        prefix: /api
+    route:
+    - destination:
+        host: api-route
+        port:
+          number: 5000

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-route
+spec:
+  selector:
+    matchLabels:
+      app: api-route
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-route
+      annotations:
+        timestamp: "{{ now }}"        
+    spec:
+      containers:
+        - name: api-route
+          image: api-route:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
