@@ -16,6 +16,7 @@ public class HomeController : ControllerBase
     [HttpGet("ping")]
     public ActionResult<string> Ping()
     {
+        _logger.LogInformation("Ejecutando ping en API2");
         return Ok("pong2");
     }
 }
