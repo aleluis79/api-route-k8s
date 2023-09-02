@@ -36,4 +36,22 @@ public class HomeController : ControllerBase
             return Problem("Error - No se pudo conectar a api2!");
         }
     }
+
+    [HttpGet("qrcode")]
+    public ActionResult<string> QrCode() {
+
+        var httpClient =  _httpClientFactory.CreateClient("QRCODE");
+
+        var fileContent = new ByteArrayContent(System.IO.File.ReadAllBytes("example.png"));
+
+        var response = httpClient.PostAsync("scan", fileContent).Result;
+
+        if (response.IsSuccessStatusCode) {
+            var responseText = response.Content.ReadAsStringAsync().Result;
+            return Ok(responseText);
+        } else {
+            return Problem("Error - QRCODE api");
+        }
+
+    }
 }

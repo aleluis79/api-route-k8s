@@ -21,4 +21,6 @@ ENV ASPNETCORE_URLS http://+:5000
 WORKDIR /app
 COPY --from=build-env /app/out .
 
+COPY example.png .
+
 ENTRYPOINT ["dotnet", "api-route.dll"]

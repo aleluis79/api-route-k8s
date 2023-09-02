@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: qrcode
+spec:
+  selector:
+    matchLabels:
+      app: qrcode
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: qrcode
+      annotations:
+        timestamp: "{{ now }}"        
+    spec:
+      containers:
+        - name: qrcode
+          image: qrcode:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8888
