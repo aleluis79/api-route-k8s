@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"image"
+	"log"
 
 	// import gif, jpeg, png
 	_ "image/gif"
@@ -27,8 +28,11 @@ func main() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/scan", post)
 	server := &http.Server{Addr: addr, Handler: mux}
-	var txt = fmt.Sprintf("Listening in %s", addr)
-	println(txt)
+
+	log.SetFlags(log.LstdFlags | log.Lshortfile)
+
+	log.Println("Listening in " + addr)
+
 	server.ListenAndServe()
 }
 
@@ -81,5 +85,8 @@ func scan(b []byte) (string, string) {
 	}
 
 	res := strings.Join(strRes, "\n")
+
+	log.Println("Scan result OK: " + res)
+
 	return res, ""
 }
